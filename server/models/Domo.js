@@ -8,6 +8,7 @@ let DomoModel = {};
 // converts string to a mongo id
 const convertId = mongoose.Types.ObjectId;
 const setName = (name) => _.escape(name).trim();
+const setFaction = (faction) => _.escape(faction).trim();
 
 const DomoSchema = new mongoose.Schema({
   name: {
@@ -20,6 +21,12 @@ const DomoSchema = new mongoose.Schema({
     type: Number,
     min: 0,
     required: true,
+  },
+  faction: {
+    type: String,
+    required: true,
+    trim: true,
+    set: setFaction,
   },
   owner: {
     type: mongoose.Schema.ObjectId,
@@ -35,13 +42,14 @@ const DomoSchema = new mongoose.Schema({
 DomoSchema.statics.toAPI = (doc) => ({
   name: doc.name,
   age: doc.age,
+  faction: doc.faction,
 });
 
 DomoSchema.statics.findByOwner = (ownerId, callback) => {
   const search = {
     owner: convertId(ownerId),
   };
-  return DomoModel.find(search).select('name age').exec(callback);
+  return DomoModel.find(search).select('name age faction').exec(callback);
 };
 
 DomoModel = mongoose.model('Domo', DomoSchema);
