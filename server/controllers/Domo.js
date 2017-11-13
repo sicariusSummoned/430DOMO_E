@@ -56,14 +56,32 @@ const makeDomo = (req, res) => {
   return domoPromise;
 };
 
-const deleteDomo = (req, res) => {
+const deleteDomo = (request, response) => {
+  const req = request;
+  const res = response;
+
   console.dir(req.params.domoId);
 
-  //call doc.remove();
+  return Domo.DomoModel.findOneAndRemove(req.params.domoId, (err, docs) => {
+    if (err) {
+      console.log(err);
+      return res.status(400).json({
+        error: 'An error occurred',
+      });
+    }
+    console.log(docs);
 
-  Domo.DomoModel.findOneAndRemove({_id:req.params.domoId});
+    // This returns text and doesn't redirect properly
+    /**
+    return res.json({
+      domos: docs
+    });
+    **/
+
+    // This doesn't update the page
+    return null;
+  });
 };
-
 
 const getDomos = (request, response) => {
   const req = request;
@@ -73,12 +91,12 @@ const getDomos = (request, response) => {
     if (err) {
       console.log(err);
       return res.status(400).json({
-        error: 'An error occurred'
+        error: 'An error occurred',
       });
     }
 
     return res.json({
-      domos: docs
+      domos: docs,
     });
   });
 };

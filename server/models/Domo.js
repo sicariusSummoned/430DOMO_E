@@ -37,7 +37,7 @@ const DomoSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
- 
+
 });
 
 DomoSchema.statics.toAPI = (doc) => ({
@@ -57,7 +57,7 @@ DomoSchema.statics.findById = (objId, callback) => {
   const search = {
     _id: convertId(objId),
   };
-  
+
   return DomoModel.findOne(search).exec(callback);
 };
 
