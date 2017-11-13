@@ -56,6 +56,14 @@ const makeDomo = (req, res) => {
   return domoPromise;
 };
 
+const deleteDomo = (req, res) => {
+  console.dir(req.params.domoId);
+
+  //call doc.remove();
+
+  Domo.DomoModel.findOneAndRemove({_id:req.params.domoId});
+};
+
 
 const getDomos = (request, response) => {
   const req = request;
@@ -64,13 +72,18 @@ const getDomos = (request, response) => {
   return Domo.DomoModel.findByOwner(req.session.account._id, (err, docs) => {
     if (err) {
       console.log(err);
-      return res.status(400).json({ error: 'An error occurred' });
+      return res.status(400).json({
+        error: 'An error occurred'
+      });
     }
 
-    return res.json({ domos: docs });
+    return res.json({
+      domos: docs
+    });
   });
 };
 
 module.exports.make = makeDomo;
 module.exports.getDomos = getDomos;
 module.exports.makerPage = makerPage;
+module.exports.deleteDomo = deleteDomo;

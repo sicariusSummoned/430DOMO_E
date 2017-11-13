@@ -37,6 +37,7 @@ const DomoSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+ 
 });
 
 DomoSchema.statics.toAPI = (doc) => ({
@@ -49,7 +50,15 @@ DomoSchema.statics.findByOwner = (ownerId, callback) => {
   const search = {
     owner: convertId(ownerId),
   };
-  return DomoModel.find(search).select('name age faction').exec(callback);
+  return DomoModel.find(search).select('name age faction id').exec(callback);
+};
+
+DomoSchema.statics.findById = (objId, callback) => {
+  const search = {
+    _id: convertId(objId),
+  };
+  
+  return DomoModel.findOne(search).exec(callback);
 };
 
 DomoModel = mongoose.model('Domo', DomoSchema);

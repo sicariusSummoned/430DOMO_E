@@ -105,6 +105,11 @@ var DomoList = function DomoList(props) {
         { className: "domoFaction" },
         "Faction : ",
         domo.faction
+      ),
+      React.createElement(
+        "a",
+        { className: "domoId", href: "/delete/" + domo._id },
+        "DELETE ME"
       )
     );
   });

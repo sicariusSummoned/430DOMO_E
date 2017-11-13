@@ -57,6 +57,7 @@ const DomoList = function(props) {
         <h3 className="domoName"> Name: {domo.name} </h3>
         <h3 className="domoAge"> Age: {domo.age} </h3>
         <h3 className="domoFaction">Faction : {domo.faction}</h3>
+        <a className="domoId" href={"/delete/" + domo._id} >DELETE ME</a>
       </div>
     );
   });

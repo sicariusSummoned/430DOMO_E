@@ -266,6 +266,9 @@ h3.domoFaction {
   font-size: 1.5em;
 }
 
+h3.domoId{
+}
+
 .domo:first-child {
     margin-top: 10px;
 }
