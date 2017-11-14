@@ -59,10 +59,13 @@ const makeDomo = (req, res) => {
 const deleteDomo = (request, response) => {
   const req = request;
   const res = response;
-
-  console.dir(req.params.domoId);
-
-  return Domo.DomoModel.findOneAndRemove(req.params.domoId, (err) => {
+  
+  const search = {
+    _id: req.params.domoId
+  };
+  
+  
+  return Domo.DomoModel.findOneAndRemove(search, (err) => {
     if (err) {
       console.log(err);
       return res.status(400).json({
@@ -77,10 +80,8 @@ const deleteDomo = (request, response) => {
     });
     **/
 
-    // This doesn't update the page
-    res.redirect('/maker');
     
-    return null;
+    return res.redirect('/maker');
   });
 };
 
