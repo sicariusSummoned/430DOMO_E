@@ -62,14 +62,13 @@ const deleteDomo = (request, response) => {
 
   console.dir(req.params.domoId);
 
-  return Domo.DomoModel.findOneAndRemove(req.params.domoId, (err, docs) => {
+  return Domo.DomoModel.findOneAndRemove(req.params.domoId, (err) => {
     if (err) {
       console.log(err);
       return res.status(400).json({
         error: 'An error occurred',
       });
     }
-    console.log(docs);
 
     // This returns text and doesn't redirect properly
     /**
@@ -79,7 +78,9 @@ const deleteDomo = (request, response) => {
     **/
 
     // This doesn't update the page
-    return null;
+    res.redirect('/maker');
+    
+    return;
   });
 };
 
