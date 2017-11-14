@@ -80,7 +80,7 @@ const deleteDomo = (request, response) => {
     // This doesn't update the page
     res.redirect('/maker');
     
-    return;
+    return null;
   });
 };
 
